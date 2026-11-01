@@ -1,0 +1,13 @@
+# Secrets that should never be committed
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+credentials.json
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
