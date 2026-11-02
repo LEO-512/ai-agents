@@ -1,10 +1,12 @@
 # AI Agents
 
-A small, opinionated collection of AI coding agents that work in both **OpenCode** and **Claude Code**. Each agent lives in its own folder with a README, an OpenCode definition and a Claude Code definition.
+A small, opinionated collection of AI tooling: prompt-based coding agents for **OpenCode** and **Claude Code**, plus a runnable automation that writes a daily AI news report.
 
-Nothing here is tied to a specific model, so every agent uses whatever model your session already runs.
+Each subagent lives in its own folder with a README, an OpenCode definition and a Claude Code definition. Nothing here is tied to a specific model, so every agent uses whatever model your session already runs.
 
 ## What's inside
+
+### Subagents
 
 | Agent | What it does | Can edit files? |
 |---|---|---|
@@ -12,6 +14,12 @@ Nothing here is tied to a specific model, so every agent uses whatever model you
 | [docs-writer](agents/docs-writer/) | Writes READMEs and setup guides that match the actual code, and flags claims it could not verify | Yes |
 | [test-writer](agents/test-writer/) | Writes tests for existing behaviour, runs them, and reports the real result | Yes |
 | [data-analyst](agents/data-analyst/) | Inspects a dataset, checks for leakage, and builds an honest baseline model | Yes |
+
+### Automation
+
+| Workflow | What it does |
+|---|---|
+| [ai-news-digest](workflows/ai-news-digest/) | A scheduled Windows task that pulls the five newest AI stories, summarises each in five lines, and writes a formatted Word report to the Desktop. No API keys. |
 
 ## Repository layout
 
@@ -24,6 +32,12 @@ agents/
   docs-writer/
   test-writer/
   data-analyst/
+workflows/
+  ai-news-digest/
+    AI-News-Agent.ps1    fetch, summarise and write the DOCX
+    Install-Schedule.ps1 daily task, no admin needed
+    Setup-Offline.ps1    daily task that runs while logged out
+    examples/            a real generated report
 ```
 
 The two definition files are identical apart from frontmatter:
@@ -82,6 +96,16 @@ Copy-Item agents\code-reviewer\claude.md .claude\agents\code-reviewer.md
 
 Config changes are picked up without restarting either tool.
 
+## Run the news digest automation
+
+```powershell
+git clone https://github.com/LEO-512/ai-agents.git
+cd ai-agents\workflows\ai-news-digest
+pwsh -NoProfile -ExecutionPolicy Bypass -File .\AI-News-Agent.ps1
+```
+
+The report is written to `Desktop\Everyday-AI\AI-News-YYYY-MM-DD.docx`. To run it every morning, use `Install-Schedule.ps1`; for runs while logged out, use `Setup-Offline.ps1` from an elevated shell. Full details are in [workflows/ai-news-digest/README.md](workflows/ai-news-digest/README.md).
+
 ## Use one
 
 Ask for it by name:
@@ -112,6 +136,8 @@ Review my changes before I commit.
 ## Security notes
 
 These agents contain no credentials and make no network calls beyond what your tool already does. Review any agent you copy from elsewhere before installing it — an agent's `permissions` can allow shell commands and file writes.
+
+The news digest script stores no credentials. It makes outbound requests only to the RSS feeds and article URLs listed in `AI-News-Agent.ps1`.
 
 ## License
 
