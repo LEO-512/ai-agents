@@ -303,13 +303,14 @@ async function analyze() {
       method: 'POST',
       body: JSON.stringify({ agent: wanted, title: 'Bayyan analysis' }),
     });
-    const sessionId = session.id;
+    const sessionId = session.data?.id || session.id;
     if (!sessionId) throw new Error('OpenCode did not return a session id.');
 
     setStatus('Bayyan is reading the poem and checking sources. This can take a minute…');
     await apiFetch(`/session/${encodeURIComponent(sessionId)}/prompt`, {
       method: 'POST',
-      body: JSON.stringify({ text: prompt }),
+      // This OpenCode version expects { prompt: { text } }, not a top-level text field.
+      body: JSON.stringify({ prompt: { text: prompt } }),
     });
 
     const deadline = Date.now() + 240000;

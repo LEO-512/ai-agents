@@ -9,7 +9,7 @@ A dependency-free web UI for the Bayyan agent. Two modes:
 
 Prompt-only — just open `index.html` in a browser, or serve the folder with any static server.
 
-Live mode:
+Live mode — **run both commands from the root of your `ai-agents` clone** (the `ui` folder only exists in this repo, not in the old standalone `bayyan` clone):
 
 ```bash
 # Terminal 1: start OpenCode's HTTP server
@@ -25,7 +25,7 @@ Then click **Connect** in the workspace. Optional environment variables:
 | Variable | Default | Purpose |
 |---|---|---|
 | `PORT` | `8787` | Port for the workspace server. |
-| `OPENCODE_BASE_URL` | `http://localhost:4096` | Address of `opencode serve`. |
+| `OPENCODE_BASE_URL` | `http://127.0.0.1:4096` | Address of `opencode serve`. Use the IPv4 address, not `localhost` — Node's `fetch` may resolve `localhost` to `::1` while OpenCode listens on IPv4 only, producing a 502. |
 
 No API keys are stored or needed by the UI. Web search inside the agent still needs an OpenCode search provider (`/connect`) if you want live citation lookups.
 

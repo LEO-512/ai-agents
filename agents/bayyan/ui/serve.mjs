@@ -7,7 +7,7 @@
  *   node agents/bayyan/ui/serve.mjs      # terminal 2
  *   open http://localhost:8787
  *
- * Optional: PORT=9000 OPENCODE_BASE_URL=http://localhost:4096 node serve.mjs
+ * Optional: PORT=9000 OPENCODE_BASE_URL=http://127.0.0.1:4096 node serve.mjs
  */
 import http from 'node:http';
 import { readFile } from 'node:fs/promises';
@@ -16,7 +16,9 @@ import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const port = Number(process.env.PORT || 8787);
-const base = (process.env.OPENCODE_BASE_URL || 'http://localhost:4096').replace(/\/+$/, '');
+// Use 127.0.0.1, not "localhost": Node's fetch may resolve localhost to ::1
+// while `opencode serve` listens on IPv4 only, which would cause ECONNREFUSED.
+const base = (process.env.OPENCODE_BASE_URL || 'http://127.0.0.1:4096').replace(/\/+$/, '');
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
