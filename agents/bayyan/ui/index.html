@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Bayyan — a beautiful workspace for rigorous Urdu, Persian and English poetry analysis with an OpenCode agent.">
+  <title>Bayyan · Poetry, understood</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#top">
+        <span class="brand-mark">ب</span>
+        <span>Bayyan <small>بیان</small></span>
+      </a>
+      <nav aria-label="Main">
+        <a href="#workspace">Workspace</a>
+        <a href="#method">Method</a>
+        <a href="#install">Install</a>
+        <a class="nav-cta" href="https://github.com/LEO-512/ai-agents/tree/main/agents/bayyan" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow">OpenCode agent · Urdu · Persian · English</span>
+          <h1>Poetry, <em>understood.</em></h1>
+          <p class="lede">
+            Bayyan (بیان — “clear exposition”) takes a verse apart with care: the words,
+            the poet’s likely meaning, the tradition’s teaching — kept separate, sourced,
+            and never confused. Paste a poem, call it in Nastaliq, and send it to the agent.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#workspace">Open the workspace ↓</a>
+            <a class="btn ghost" href="#install">Install in a minute</a>
+          </div>
+          <ul class="hero-facts">
+            <li><strong>11</strong><span>labelled sections</span></li>
+            <li><strong>3</strong><span>separate registers</span></li>
+            <li><strong>0</strong><span>required API keys</span></li>
+          </ul>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <img src="assets/hero-calligraphy.svg" alt="">
+          <div class="art-caption">ILLUMINATED STUDY · BAYYAN</div>
+        </div>
+      </section>
+
+      <section id="workspace" class="section">
+        <div class="section-head">
+          <div>
+            <span class="kicker">The workspace</span>
+            <h2>From verse to understanding</h2>
+          </div>
+          <p>Paste a poem below. Everything runs in your browser until you choose “Analyze live”.</p>
+        </div>
+
+        <div class="grid-two">
+          <div class="card">
+            <div class="card-head">
+              <span class="step">01</span>
+              <h3>Your poem</h3>
+            </div>
+            <label class="field-label" for="poem">Original text</label>
+            <textarea id="poem" rows="8" spellcheck="false" placeholder="Paste a couplet, a ghazal, or a whole poem here…"></textarea>
+
+            <div class="samples" aria-label="Example poems">
+              <span class="samples-label">Try:</span>
+              <button class="chip" data-sample="iqbal">Iqbal · Khudi</button>
+              <button class="chip" data-sample="shakespeare">Shakespeare · Sonnet 18</button>
+            </div>
+
+            <div class="row">
+              <div class="field grow">
+                <label class="field-label" for="language">Language</label>
+                <select id="language">
+                  <option value="auto">Auto-detect</option>
+                  <option value="Urdu">Urdu</option>
+                  <option value="Persian">Persian</option>
+                  <option value="English">English</option>
+                </select>
+              </div>
+              <button class="btn quiet" id="clearPoem">Clear</button>
+            </div>
+
+            <fieldset class="options">
+              <legend>What should Bayyan include?</legend>
+              <label><input type="checkbox" id="optGloss" checked> Word-by-word glossary</label>
+              <label><input type="checkbox" id="optMeter" checked> Meter &amp; literary devices</label>
+              <label><input type="checkbox" id="optReligion" checked> Islamic connections (verified only)</label>
+              <label><input type="checkbox" id="optDisagreement" checked> Scholarly disagreement</label>
+            </fieldset>
+
+            <div class="button-row">
+              <button class="btn primary" id="buildPrompt">Build prompt</button>
+              <button class="btn ghost" id="copyPrompt">Copy prompt</button>
+            </div>
+            <pre id="promptBox" class="prompt-box" aria-live="polite">Your ready-to-paste OpenCode prompt appears here.</pre>
+          </div>
+
+          <div class="card calligraphy-card">
+            <div class="card-head">
+              <span class="step">02</span>
+              <h3>Calligraphy studio</h3>
+            </div>
+            <p class="card-note">Urdu and Persian render live in Nastaliq; English uses an engraved serif. Download the result as a PNG.</p>
+
+            <div class="calligraphy-toolbar">
+              <div class="field">
+                <label class="field-label" for="calliSize">Size</label>
+                <input type="range" id="calliSize" min="26" max="76" value="48">
+              </div>
+              <div class="field">
+                <label class="field-label" for="calliTheme">Paper</label>
+                <select id="calliTheme">
+                  <option value="ivory">Ivory &amp; gold</option>
+                  <option value="emerald">Emerald &amp; gold</option>
+                  <option value="night">Midnight &amp; silver</option>
+                </select>
+              </div>
+              <div class="field">
+                <label class="field-label" for="calliAlign">Align</label>
+                <select id="calliAlign">
+                  <option value="right">Right</option>
+                  <option value="center">Centre</option>
+                  <option value="left">Left</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="calligraphy" class="calligraphy theme-ivory" dir="rtl">
+              <div class="calligraphy-inner">
+                <div class="ornament">✦</div>
+                <div id="calligraphyText" class="calligraphy-text">یہاں آپ کی غزل نظر آئے گی</div>
+                <div class="ornament">✦</div>
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn primary" id="downloadPng">Download PNG</button>
+              <button class="btn ghost" id="copyCalligraphy">Copy text</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card live-card">
+          <div class="card-head">
+            <span class="step">03</span>
+            <h3>Live analysis</h3>
+            <span id="connBadge" class="badge badge-off">Not connected</span>
+          </div>
+          <p class="card-note">
+            Optional. Start the tiny bridge with <code>node serve.mjs</code> and a local
+            <code>opencode serve</code>, then connect. Without it, prompt-only mode works perfectly.
+          </p>
+          <div class="row live-row">
+            <div class="field grow">
+              <label class="field-label" for="apiBase">API base</label>
+              <input id="apiBase" type="text" value="/api" spellcheck="false" placeholder="/api or http://localhost:4096">
+            </div>
+            <div class="field grow">
+              <label class="field-label" for="agentName">Agent id</label>
+              <input id="agentName" type="text" value="bayyan" spellcheck="false">
+            </div>
+            <button class="btn ghost" id="connectBtn">Connect</button>
+            <button class="btn primary" id="analyzeBtn" disabled>Analyze with Bayyan</button>
+          </div>
+          <div id="status" class="status" aria-live="polite">Prompt-only mode. Build a prompt above, or connect to a local OpenCode server.</div>
+          <div id="results" class="results"></div>
+        </div>
+      </section>
+
+      <section id="method" class="section method">
+        <div class="section-head">
+          <div>
+            <span class="kicker">The method</span>
+            <h2>Three things, never blurred</h2>
+          </div>
+          <p>A verse is literature, not a fatwa and not tafsir. Bayyan keeps these registers apart on purpose.</p>
+        </div>
+        <div class="method-grid">
+          <article class="method-card">
+            <span class="method-num">a</span>
+            <h3>What the words say</h3>
+            <p>The literal sense: text, transliteration, glossary, grammar and imagery.</p>
+          </article>
+          <article class="method-card">
+            <span class="method-num">b</span>
+            <h3>What the poet meant</h3>
+            <p>The literary reading — marked probable, with alternatives where the line is ambiguous.</p>
+          </article>
+          <article class="method-card">
+            <span class="method-num">c</span>
+            <h3>What the tradition says</h3>
+            <p>Quran and hadith on the theme, cited as <code>surah:ayah</code> and verified before use — or omitted honestly.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="install" class="section install">
+        <div class="section-head">
+          <div>
+            <span class="kicker">Install</span>
+            <h2>Ready in two commands</h2>
+          </div>
+          <p>Copy the agent into your OpenCode agents folder. OpenCode reloads it automatically.</p>
+        </div>
+        <div class="code-block">
+          <div class="code-head"><span>Windows PowerShell</span><button class="copy-code" data-target="psCode">Copy</button></div>
+<pre id="psCode"><code>New-Item -ItemType Directory -Force "$env:USERPROFILE\.config\opencode\agents" | Out-Null
+Copy-Item agents\bayyan\opencode.md "$env:USERPROFILE\.config\opencode\agents\bayyan.md"
+opencode agent list | Select-String bayyan</code></pre>
+        </div>
+        <div class="code-block">
+          <div class="code-head"><span>macOS / Linux</span><button class="copy-code" data-target="bashCode">Copy</button></div>
+<pre id="bashCode"><code>mkdir -p ~/.config/opencode/agents
+cp agents/bayyan/opencode.md ~/.config/opencode/agents/bayyan.md
+opencode agent list | grep bayyan</code></pre>
+        </div>
+        <p class="install-foot">Then: <code>opencode --agent bayyan</code> · or ask your main agent: <em>“Use the bayyan subagent on this verse…”</em></p>
+      </section>
+    </main>
+
+    <footer>
+      <span>Bayyan · part of <a href="https://github.com/LEO-512/ai-agents" target="_blank" rel="noreferrer">ai-agents</a></span>
+      <span>MIT licensed · no credentials required</span>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

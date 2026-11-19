@@ -14,6 +14,7 @@ Each subagent lives in its own folder with a README, an OpenCode definition and 
 | [docs-writer](agents/docs-writer/) | Writes READMEs and setup guides that match the actual code, and flags claims it could not verify | Yes |
 | [test-writer](agents/test-writer/) | Writes tests for existing behaviour, runs them, and reports the real result | Yes |
 | [data-analyst](agents/data-analyst/) | Inspects a dataset, checks for leakage, and builds an honest baseline model | Yes |
+| [bayyan](agents/bayyan/) | Close reading of Urdu/Persian/English poetry: gloss, translation, literary notes, verified citations and scholarly context. Ships with a web workspace | No — analysis only |
 
 ### Automation
 
@@ -32,6 +33,12 @@ agents/
   docs-writer/
   test-writer/
   data-analyst/
+  bayyan/
+    README.md      what it does, example prompt, install steps
+    opencode.md    drop-in for OpenCode
+    claude.md      drop-in for Claude Code
+    ui/            browser workspace: prompt builder, Nastaliq calligraphy,
+                   optional live OpenCode API mode (zero dependencies)
 workflows/
   ai-news-digest/
     AI-News-Agent.ps1    fetch, summarise and write the DOCX
@@ -94,7 +101,19 @@ New-Item -ItemType Directory -Force .claude\agents | Out-Null
 Copy-Item agents\code-reviewer\claude.md .claude\agents\code-reviewer.md
 ```
 
+Replace `code-reviewer` with the folder name of any agent in the table above — for example `bayyan`.
+
 Config changes are picked up without restarting either tool.
+
+### Bayyan's web workspace
+
+The poetry agent includes an optional browser UI with a prompt builder and a live Nastaliq calligraphy studio. It needs no build step:
+
+```bash
+node agents/bayyan/ui/serve.mjs     # http://localhost:8787
+```
+
+For live analysis also run `opencode serve`. See [agents/bayyan/ui/README.md](agents/bayyan/ui/README.md).
 
 ## Run the news digest automation
 
