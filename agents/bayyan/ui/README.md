@@ -2,14 +2,14 @@
 
 A dependency-free web UI for the Bayyan agent. Two modes:
 
-1. **Prompt-only (default).** Paste a poem, choose options, and get a ready-to-paste OpenCode prompt. The calligraphy studio renders Urdu/Persian in Nastaliq (English in an engraved serif) and exports a PNG. No server, no keys, no internet needed beyond the web fonts.
-2. **Live analysis (optional).** A tiny Node bridge serves the page and proxies OpenCode's API so the browser can run the agent and render its 11-section answer.
+1. **Prompt-only (default).** Paste a poem, choose options, and get a ready-to-paste OpenCode prompt. The calligraphy studio renders Urdu/Persian in Nastaliq and exports a PNG. No server, no keys, no internet needed beyond the web fonts.
+2. **Live analysis (optional).** A tiny Node bridge serves the page and proxies OpenCode's API so the browser can run the agent.
 
 ## Run it
 
 Prompt-only — just open `index.html` in a browser, or serve the folder with any static server.
 
-Live mode — **run both commands from the root of your `ai-agents` clone** (the `ui` folder only exists in this repo, not in the old standalone `bayyan` clone):
+Live mode — **run both commands from the root of your `ai-agents` clone**:
 
 ```bash
 # Terminal 1: start OpenCode's HTTP server
