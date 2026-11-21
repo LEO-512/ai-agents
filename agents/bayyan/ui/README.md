@@ -13,21 +13,13 @@ Live mode — **run both commands from the root of your `ai-agents` clone** (the
 
 ```bash
 # Terminal 1: start OpenCode's HTTP server
-opencode serve
+ opencode serve --port 4096 --hostname 127.0.0.1
 
-# Terminal 2: serve the workspace (Node 18+ built-ins only)
+# Terminal 2: serve the workspace 
 node agents/bayyan/ui/serve.mjs
 # open http://localhost:8787
 ```
 
-Then click **Connect** in the workspace. Optional environment variables:
-
-| Variable | Default | Purpose |
-|---|---|---|
-| `PORT` | `8787` | Port for the workspace server. |
-| `OPENCODE_BASE_URL` | `http://127.0.0.1:4096` | Address of `opencode serve`. Use the IPv4 address, not `localhost` — Node's `fetch` may resolve `localhost` to `::1` while OpenCode listens on IPv4 only, producing a 502. |
-
-No API keys are stored or needed by the UI. Web search inside the agent still needs an OpenCode search provider (`/connect`) if you want live citation lookups.
 
 ## Notes
 
