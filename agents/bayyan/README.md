@@ -53,12 +53,6 @@ mkdir -p ~/.config/opencode/agents
 cp agents/bayyan/opencode.md ~/.config/opencode/agents/bayyan.md
 ```
 
-### OpenCode, per project
-
-```powershell
-New-Item -ItemType Directory -Force .opencode\agents | Out-Null
-Copy-Item agents\bayyan\opencode.md .opencode\agents\bayyan.md
-```
 
 ### Claude Code
 
@@ -72,7 +66,7 @@ mkdir -p ~/.claude/agents
 cp agents/bayyan/claude.md ~/.claude/agents/bayyan.md
 ```
 
-Config changes are picked up without a restart; use `/reload` to force it.
+
 
 ## Use
 
@@ -86,7 +80,6 @@ Or select it directly with `opencode --agent bayyan`.
 
 - No API key is required for the agent itself. The Quran.com API is public and keyless.
 - OpenCode web search needs one provider (`/connect`, or `TAVILY_API_KEY` / `EXA_API_KEY` / etc.) if you want literature searches. Plain `webfetch` of known URLs works without it.
-- The optional UI live mode needs `opencode serve` and Node.js 18+.
 
 ## License
 
