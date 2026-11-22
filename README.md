@@ -47,18 +47,6 @@ workflows/
     examples/            a real generated report
 ```
 
-The two definition files are identical apart from frontmatter:
-
-| | OpenCode | Claude Code |
-|---|---|---|
-| File name | `opencode.md` | `claude.md` |
-| Frontmatter | `description`, `mode`, `permissions` | `name`, `description`, `tools` |
-| Global location | `~/.config/opencode/agents/` | `~/.claude/agents/` |
-| Project location | `.opencode/agents/` | `.claude/agents/` |
-| Auto-selection | The main agent picks a subagent by its `description` | Same, using `description` |
-
-> **OpenCode path note:** newer OpenCode versions use `agents/` (plural). Older V1 installs used `agent/` (singular). If `agents/` does nothing, try `agent/`.
-
 ## Install one agent
 
 ### OpenCode, globally
@@ -128,15 +116,6 @@ Or let the tool choose, based on the `description` in the frontmatter:
 ```text
 Review my changes before I commit.
 ```
-
-## Write your own
-
-1. Copy an existing folder and rename it.
-2. Keep the frontmatter fields, change `description` — that is what the parent agent reads when deciding which subagent to launch.
-3. Write the instructions as a system prompt: what to look for, in what order, and what the output must contain.
-4. Be explicit about what the agent must **not** do. Negative rules prevent the most common failure: an agent that "helpfully" edits files you only wanted reviewed.
-
-
 
 ## Security notes
 
