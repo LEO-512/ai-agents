@@ -105,16 +105,6 @@ Replace `code-reviewer` with the folder name of any agent in the table above —
 
 Config changes are picked up without restarting either tool.
 
-### Bayyan's web workspace
-
-The poetry agent includes an optional browser UI with a prompt builder and a live Nastaliq calligraphy studio. It needs no build step:
-
-```bash
-node agents/bayyan/ui/serve.mjs     # http://localhost:8787
-```
-
-For live analysis also run `opencode serve`. See [agents/bayyan/ui/README.md](agents/bayyan/ui/README.md).
-
 ## Run the news digest automation
 
 ```powershell
@@ -146,11 +136,7 @@ Review my changes before I commit.
 3. Write the instructions as a system prompt: what to look for, in what order, and what the output must contain.
 4. Be explicit about what the agent must **not** do. Negative rules prevent the most common failure: an agent that "helpfully" edits files you only wanted reviewed.
 
-### Keeping it portable
 
-- Do not pin a model. Each tool inherits the session model, which avoids stale model IDs.
-- Keep tool-specific frontmatter to a minimum — `mode` and `permissions` for OpenCode, `tools` for Claude Code.
-- Put the actual instructions in the body, since both tools use it as the system prompt.
 
 ## Security notes
 
